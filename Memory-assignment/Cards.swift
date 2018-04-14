@@ -8,23 +8,30 @@
 
 import Foundation
 
-public struct Cards
-{
-    public var isFaceUp:Bool = false
-    public var isMatched:BooleanLiteralType = false
-    private(set) var identifier: Int
-    public var isSeen: Int = 0
+public struct Cards {
     
-    static private var identifierFactory:Int = 0
+    public var isFaceUp : Bool = false
+    
+    public var isMatched : BooleanLiteralType = false
+    
+    private(set) var identifier : Int
+    
+    public var isSeen : Int = 0
+    
+    static private var identifierFactory : Int = 0
     
     static private func getUniqueIdentifier () -> Int {
+        
         Cards.identifierFactory += 1
+        
         return Cards.identifierFactory
         
     }
     
-    init(){
+    init() {
+        
         self.identifier = Cards.getUniqueIdentifier()
+    
     }
     
 }
