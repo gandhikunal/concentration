@@ -75,6 +75,8 @@ class ViewController : UIViewController {
         }
     
     }
+    
+    var y : UIStackView?
    
     //Theme Options
 
@@ -146,6 +148,9 @@ class ViewController : UIViewController {
         
         if let themeIndex : Int = themeButton.index(of : sender) {
             
+            if y != nil {
+                self.view!.insertSubview(y! as UIStackView, at: 0)
+            }
             setThemeButtons(for : sender)
             let choosenTheme : String = themeButton[themeIndex].currentTitle!.lowercased()
             let currentTheme = ThemeColors(rawValue : choosenTheme)!
@@ -206,7 +211,9 @@ class ViewController : UIViewController {
         }
         
         if Game.gameOver {
-        
+            let x = self.view!.subviews
+            y = x[0] as? UIStackView
+            x[0].removeFromSuperview()
             setThemeButtons(for: nil)
             gameOverMessage.text = gameOverMessageText
             gameOverMessage.lineBreakMode = .byWordWrapping

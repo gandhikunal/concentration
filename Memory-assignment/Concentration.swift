@@ -123,7 +123,7 @@ public class Concentration {
         self.remainingCardCount = cards.count
         
         //TODO: shuffle logic incorporated
-        var cardsShuffeled : [Cards] = [Cards]()
+        /*var cardsShuffeled : [Cards] = [Cards]()
         var cardsShuffeledTemp : [Cards] = [Cards]()
         let halfDeckSize : Int = (cards.count)/2
         var firstHalf : ArraySlice<Cards> = cards[0...(halfDeckSize-1)]
@@ -163,7 +163,7 @@ public class Concentration {
             
             cards.swapAt(index, uniqueIncrementor)
         
-        }
+        }*/
         
     }
     
