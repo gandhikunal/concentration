@@ -19,6 +19,9 @@ class ViewController : UIViewController {
     
     lazy public var Game : Concentration = Concentration(numberOfPairOfCards : numberOfPairOfCards)
     
+    @IBOutlet weak var cardButtonsStackView: UIStackView!
+    @IBOutlet weak var cardButtonsStackViewTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet public var CardButtons : [UIButton]!
     
     @IBOutlet private weak var Flipcount : UILabel!
@@ -76,8 +79,6 @@ class ViewController : UIViewController {
     
     }
     
-    var y : UIStackView?
-   
     //Theme Options
 
     private struct ColorAttributes {
@@ -144,13 +145,20 @@ class ViewController : UIViewController {
     
     }
     
+    func toggleCardButtonsStackViewVisibility() {
+        let wasHidden = cardButtonsStackView.isHidden
+        let isHidden = !wasHidden
+        cardButtonsStackView.isHidden = isHidden
+        // If stackView was hidden, now it's visible, use a positive offset (or setting it
+        cardButtonsStackViewTopConstraint.constant += isHidden ? -100 : 100
+    }
+    
     @IBAction public func chooseTheme(_ sender : UIButton) {
         
         if let themeIndex : Int = themeButton.index(of : sender) {
             
-            if y != nil {
-                self.view!.insertSubview(y! as UIStackView, at: 0)
-            }
+            toggleCardButtonsStackViewVisibility()
+            
             setThemeButtons(for : sender)
             let choosenTheme : String = themeButton[themeIndex].currentTitle!.lowercased()
             let currentTheme = ThemeColors(rawValue : choosenTheme)!
@@ -211,9 +219,9 @@ class ViewController : UIViewController {
         }
         
         if Game.gameOver {
-            let x = self.view!.subviews
-            y = x[0] as? UIStackView
-            x[0].removeFromSuperview()
+            
+            toggleCardButtonsStackViewVisibility()
+            
             setThemeButtons(for: nil)
             gameOverMessage.text = gameOverMessageText
             gameOverMessage.lineBreakMode = .byWordWrapping

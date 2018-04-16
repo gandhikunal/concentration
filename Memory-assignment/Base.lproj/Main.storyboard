@@ -236,6 +236,8 @@
                     </view>
                     <connections>
                         <outlet property="Flipcount" destination="56k-Vk-HB6" id="LGf-v5-VBg"/>
+                        <outlet property="cardButtonsStackView" destination="4g3-sP-ROi" id="xqP-hE-39U"/>
+                        <outlet property="cardButtonsStackViewTopConstraint" destination="PUq-SA-OA4" id="2jQ-SV-kBI"/>
                         <outlet property="gameOverMessage" destination="whR-dg-aDe" id="bYT-KV-t99"/>
                         <outletCollection property="CardButtons" destination="8to-OG-vo7" collectionClass="NSMutableArray" id="ZYU-S9-dsg"/>
                         <outletCollection property="CardButtons" destination="kbf-2q-OLD" collectionClass="NSMutableArray" id="4Ij-Vy-DOj"/>
