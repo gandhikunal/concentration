@@ -9,34 +9,19 @@
 import Foundation
 
 public class Concentration {
+    
 
     private(set) var cards : Array<Cards> = [Cards]()
+    
+    var flipCount: Int = 0
+    
+    var score: Int = 0
     
     private var indexOfOneAndOnlyFaceUpCard : Int? {
         
         get {
             
-            var foundIndex: Int?
-            
-            for index in cards.indices {
-                
-                if cards[index].isFaceUp {
-                
-                    if foundIndex == nil {
-                        
-                        foundIndex = index
-                        
-                    } else {
-                        
-                        return nil
-                        
-                    }
-                    
-                }
-            
-            }
-            
-            return foundIndex
+            return cards.indices.filter { cards[$0].isFaceUp }.oneAndOnly
         
         }
         
@@ -75,7 +60,10 @@ public class Concentration {
            
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != identifier {
                 //      one card is faceup
-                if cards[matchIndex].identifier == cards[identifier].identifier {
+                
+                flipCount += 1
+                
+                if cards[matchIndex] == cards[identifier] {
                     
                     cards[matchIndex].isMatched = true
                     cards[identifier].isMatched = true
@@ -87,22 +75,27 @@ public class Concentration {
                         cards[identifier].isSeen += 1
                     
                     }
-                    
+                    self.score += 2
                 } else {
                     // incrementing your seen count as the cards did not match
+                    if cards[identifier].isSeen > 0 {
+                        self.score -= 1
+                    }
                     cards[identifier].isSeen += 1
-                
+                    
                 }
                 
                 cards[identifier].isFaceUp = true
 
              } else {
                 //incrementing your card seen count if not the same card
-                if !cards[identifier].isFaceUp{
+                if !cards[identifier].isFaceUp {
+                    flipCount += 1
                     cards[identifier].isSeen += 1
                 }
-               
+                
                 indexOfOneAndOnlyFaceUpCard = identifier
+                
             }
             
         }
@@ -165,6 +158,14 @@ public class Concentration {
         
         }*/
         
+    }
+    
+}
+
+extension Collection {
+    
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil
     }
     
 }

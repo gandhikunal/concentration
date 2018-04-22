@@ -12,10 +12,19 @@ class ViewController : UIViewController {
     
     //Defaul Button Display Attributes based on the choosen theme
     
-    lazy private var currentTheme : ThemeColors = ThemeColors.halloween
-    lazy private var currentThemeAttributes : ColorAttributes = currentTheme.colors
+    lazy private var currentTheme: ThemeColors = ThemeColors.halloween
+    lazy private var currentThemeAttributes: ColorAttributes = currentTheme.colors
+    private var currentThemeIndex: Int = 0
     
    //Game properties
+    
+    @IBAction func newGame(_ sender: UIButton) {
+        createNewGame(for: currentThemeIndex)
+    }
+    
+    @IBOutlet weak var gameScore: UILabel!
+    
+    @IBOutlet weak var newGameButton: UIButton!
     
     lazy public var Game : Concentration = Concentration(numberOfPairOfCards : numberOfPairOfCards)
     
@@ -35,14 +44,14 @@ class ViewController : UIViewController {
         get {
             
             let defaultMessage : String = "Game Over!! \n To start a new game please choose a theme."
-            var isSeenValues : [Int : Int] = [Int : Int]()
+            var isSeenValues : [Cards : Int] = [Cards : Int]()
             
             for index in CardButtons.indices {
                 
                 let button = CardButtons[index]
                 let card = Game.cards[index]
                 
-                isSeenValues.merge([card.identifier : card.isSeen]){(_, new) in new }
+                isSeenValues.merge([card : card.isSeen]){(_, new) in new }
                 
                 button.setTitle("", for: UIControlState.normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0)
@@ -69,14 +78,12 @@ class ViewController : UIViewController {
     
     }
     
-    var flipcount : Int = 0 {
-        
-        didSet {
-            
-            Flipcount.text = "Flips:\(flipcount)"
-        
-        }
+    private func updateFlipCount() {
+            Flipcount.text = "Flips:\(Game.flipCount)"
+    }
     
+    func updateGameScore() {
+        gameScore.text = "Game Score:\(Game.score)"
     }
     
     //Theme Options
@@ -120,6 +127,7 @@ class ViewController : UIViewController {
         }
         
     }
+
     
     //Theme Dsiplay Logic
     
@@ -146,38 +154,55 @@ class ViewController : UIViewController {
     }
     
     func toggleCardButtonsStackViewVisibility() {
-        let wasHidden = cardButtonsStackView.isHidden
-        let isHidden = !wasHidden
-        cardButtonsStackView.isHidden = isHidden
-        // If stackView was hidden, now it's visible, use a positive offset (or setting it
-        cardButtonsStackViewTopConstraint.constant += isHidden ? -100 : 100
+        
+        if (Game.gameOver == true) || cardButtonsStackViewTopConstraint.constant < 0 {
+            let wasHidden = cardButtonsStackView.isHidden
+            let isHidden = !wasHidden
+            cardButtonsStackView.isHidden = isHidden
+            // If stackView was hidden, now it's visible, use a positive offset (or setting it
+            cardButtonsStackViewTopConstraint.constant += isHidden ? -200 : 200
+        }
+    }
+    
+    func createNewGame(for buttonIndex: Int) {
+        
+        let choosenTheme : String = themeButton[buttonIndex].currentTitle!.lowercased()
+        let currentTheme = ThemeColors(rawValue : choosenTheme)!
+        currentThemeAttributes = currentTheme.colors
+        
+        view.backgroundColor = currentThemeAttributes.screenBackgroundColor
+        Game = Concentration(numberOfPairOfCards : numberOfPairOfCards)
+        gameOverMessage.isHidden = true
+        
+        for index in CardButtons.indices {
+            
+            CardButtons[index].setTitle(" ", for: UIControlState.normal)
+            CardButtons[index].backgroundColor = currentThemeAttributes.buttonFaceDownColor
+            
+        }
+        
+        gameScore.textColor = currentThemeAttributes.flipCountColor
+        newGameButton.isHidden = false
+        newGameButton.setTitleColor(currentThemeAttributes.flipCountColor, for: UIControlState.normal)
+        Flipcount.textColor = currentThemeAttributes.flipCountColor
+        
+        updateFlipCount()
+        updateGameScore()
+        
     }
     
     @IBAction public func chooseTheme(_ sender : UIButton) {
         
         if let themeIndex : Int = themeButton.index(of : sender) {
             
-            toggleCardButtonsStackViewVisibility()
+            currentThemeIndex = themeIndex
             
             setThemeButtons(for : sender)
-            let choosenTheme : String = themeButton[themeIndex].currentTitle!.lowercased()
-            let currentTheme = ThemeColors(rawValue : choosenTheme)!
-            currentThemeAttributes = currentTheme.colors
             
-            view.backgroundColor = currentThemeAttributes.screenBackgroundColor
-            Game = Concentration(numberOfPairOfCards : numberOfPairOfCards)
-            gameOverMessage.isHidden = true
+            createNewGame(for: currentThemeIndex)
             
-            for index in CardButtons.indices {
-                
-                CardButtons[index].setTitle(" ", for: UIControlState.normal)
-                CardButtons[index].backgroundColor = currentThemeAttributes.buttonFaceDownColor
+            toggleCardButtonsStackViewVisibility()
             
-            }
-            
-            Flipcount.textColor = currentThemeAttributes.flipCountColor
-            flipcount = 0
-        
         }
     
     }
@@ -186,11 +211,10 @@ class ViewController : UIViewController {
 
     @IBAction public func touchCard(_ sender : UIButton) {
         
-        flipcount += 1
-        
         if let cardIndex = CardButtons.index(of : sender) {
             
             Game.ChooseCard(identifier: cardIndex)
+            updateFlipCount()
             updateViewfromModel()
         
         }
@@ -218,11 +242,14 @@ class ViewController : UIViewController {
         
         }
         
+        updateGameScore()
+        
         if Game.gameOver {
             
             toggleCardButtonsStackViewVisibility()
             
             setThemeButtons(for: nil)
+            newGameButton.isHidden = true
             gameOverMessage.text = gameOverMessageText
             gameOverMessage.lineBreakMode = .byWordWrapping
             gameOverMessage.numberOfLines = 0
@@ -233,17 +260,17 @@ class ViewController : UIViewController {
     
     }
     
-    private var emojis = [Int : String]()
+    private var emojis = [Cards : String]()
     
     private func emoji(for card : Cards)->String {
         
-        if emojis[card.identifier] == nil {
+        if emojis[card] == nil {
 
-             emojis[card.identifier] = currentThemeAttributes.removeEmoji(at : currentThemeAttributes.emojiIcons.count.arc4randomuniform)
+             emojis[card] = currentThemeAttributes.removeEmoji(at : currentThemeAttributes.emojiIcons.count.arc4randomuniform)
         
         }
         
-        return emojis[card.identifier] ?? "?"
+        return emojis[card] ?? "?"
         
     }
 
