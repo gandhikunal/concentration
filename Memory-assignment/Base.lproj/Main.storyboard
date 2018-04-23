@@ -193,83 +193,73 @@
                                             <action selector="chooseTheme:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PWX-IX-fLl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ftL-vM-bxK">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Fjl-vA-Srl">
                                         <rect key="frame" x="234" y="0.0" width="109" height="30"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Smileys"/>
-                                        <connections>
-                                            <action selector="chooseTheme:" destination="BYZ-38-t0r" eventType="touchUpInside" id="br6-Pc-9gr"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ftL-vM-bxK">
+                                                <rect key="frame" x="0.0" y="0.0" width="109" height="30"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="Smileys"/>
+                                                <connections>
+                                                    <action selector="chooseTheme:" destination="BYZ-38-t0r" eventType="touchUpInside" id="br6-Pc-9gr"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qzv-fb-aef">
-                                <rect key="frame" x="16" y="354" width="121" height="311.66666666666663"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="New Game">
-                                    <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fxJ-MD-yxF"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Uj-2W-CSU">
-                                <rect key="frame" x="16" y="696" width="343" height="56"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Uj-2W-CSU" userLabel="Bottom View">
+                                <rect key="frame" x="16" y="722" width="343" height="30"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qzv-fb-aef">
+                                        <rect key="frame" x="0.0" y="0.0" width="109" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="New Game">
+                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fxJ-MD-yxF"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Score: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="az7-a4-Cok">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="117" y="0.0" width="109" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Flip Count: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="56k-Vk-HB6">
-                                        <rect key="frame" x="0.0" y="32" width="343" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <rect key="frame" x="234" y="0.0" width="109" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over!!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="8" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whR-dg-aDe">
-                                <rect key="frame" x="45" y="673.66666666666663" width="285" height="14.333333333333371"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="y4H-1b-mtK" secondAttribute="trailing" constant="16" id="DbE-qC-FXf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qzv-fb-aef" secondAttribute="trailing" constant="238" id="E0U-fe-2UF"/>
                             <constraint firstItem="4g3-sP-ROi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="FbY-Xz-iN4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4g3-sP-ROi" secondAttribute="trailing" constant="16" id="GaM-nn-qxe"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="whR-dg-aDe" secondAttribute="trailing" constant="45" id="JWw-xB-mkN"/>
                             <constraint firstItem="4g3-sP-ROi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PUq-SA-OA4"/>
-                            <constraint firstItem="Qzv-fb-aef" firstAttribute="top" secondItem="y4H-1b-mtK" secondAttribute="bottom" constant="8" symbolic="YES" id="QT7-kO-YVM"/>
-                            <constraint firstItem="Qzv-fb-aef" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="TMq-t2-dB8"/>
-                            <constraint firstItem="2Uj-2W-CSU" firstAttribute="top" secondItem="whR-dg-aDe" secondAttribute="bottom" constant="8" symbolic="YES" id="XfB-yV-ukM"/>
                             <constraint firstItem="y4H-1b-mtK" firstAttribute="top" secondItem="4g3-sP-ROi" secondAttribute="bottom" constant="8" symbolic="YES" id="ad9-uP-cap"/>
+                            <constraint firstItem="2Uj-2W-CSU" firstAttribute="top" relation="lessThanOrEqual" secondItem="y4H-1b-mtK" secondAttribute="bottom" constant="382" id="awv-lO-Uoq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2Uj-2W-CSU" secondAttribute="bottom" constant="26" id="crn-Uv-hYi"/>
-                            <constraint firstItem="whR-dg-aDe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="e51-CF-LOa"/>
                             <constraint firstItem="2Uj-2W-CSU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="gzI-Lt-5XP"/>
-                            <constraint firstItem="whR-dg-aDe" firstAttribute="top" secondItem="Qzv-fb-aef" secondAttribute="bottom" constant="8" symbolic="YES" id="qWl-Rq-nKd"/>
                             <constraint firstItem="y4H-1b-mtK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="sIy-jC-i6e"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Uj-2W-CSU" secondAttribute="trailing" constant="16" id="x5R-qa-8aB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <variation key="heightClass=compact-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="y4H-1b-mtK"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="Flipcount" destination="56k-Vk-HB6" id="LGf-v5-VBg"/>
+                        <outlet property="bottomView" destination="2Uj-2W-CSU" id="NKm-Aa-d2w"/>
                         <outlet property="cardButtonsStackView" destination="4g3-sP-ROi" id="xqP-hE-39U"/>
                         <outlet property="cardButtonsStackViewTopConstraint" destination="PUq-SA-OA4" id="2jQ-SV-kBI"/>
-                        <outlet property="gameOverMessage" destination="whR-dg-aDe" id="bYT-KV-t99"/>
                         <outlet property="gameScore" destination="az7-a4-Cok" id="dTB-0k-uhR"/>
                         <outlet property="newGameButton" destination="Qzv-fb-aef" id="QnS-ex-t8a"/>
+                        <outlet property="themeOptions" destination="y4H-1b-mtK" id="y29-Gd-aHm"/>
                         <outletCollection property="CardButtons" destination="8to-OG-vo7" collectionClass="NSMutableArray" id="ZYU-S9-dsg"/>
                         <outletCollection property="CardButtons" destination="kbf-2q-OLD" collectionClass="NSMutableArray" id="4Ij-Vy-DOj"/>
                         <outletCollection property="CardButtons" destination="Ok2-gT-duQ" collectionClass="NSMutableArray" id="H47-Q5-bBl"/>

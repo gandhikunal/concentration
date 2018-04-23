@@ -15,7 +15,7 @@ class ViewController : UIViewController {
     lazy private var currentTheme: ThemeColors = ThemeColors.halloween
     lazy private var currentThemeAttributes: ColorAttributes = currentTheme.colors
     private var currentThemeIndex: Int = 0
-    
+    private var stackView: UIStackView = UIStackView()
    //Game properties
     
     @IBAction func newGame(_ sender: UIButton) {
@@ -31,11 +31,14 @@ class ViewController : UIViewController {
     @IBOutlet weak var cardButtonsStackView: UIStackView!
     @IBOutlet weak var cardButtonsStackViewTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var themeOptions: UIStackView!
+    @IBOutlet weak var bottomView: UIStackView!
+    
     @IBOutlet public var CardButtons : [UIButton]!
     
     @IBOutlet private weak var Flipcount : UILabel!
     
-    @IBOutlet private weak var gameOverMessage : UILabel!
+//    @IBOutlet private weak var gameOverMessage : UILabel!
     
     @IBOutlet public var themeButton: [UIButton]!
     
@@ -172,7 +175,7 @@ class ViewController : UIViewController {
         
         view.backgroundColor = currentThemeAttributes.screenBackgroundColor
         Game = Concentration(numberOfPairOfCards : numberOfPairOfCards)
-        gameOverMessage.isHidden = true
+        
         
         for index in CardButtons.indices {
             
@@ -180,6 +183,8 @@ class ViewController : UIViewController {
             CardButtons[index].backgroundColor = currentThemeAttributes.buttonFaceDownColor
             
         }
+
+        stackView.removeFromSuperview()
         
         gameScore.textColor = currentThemeAttributes.flipCountColor
         newGameButton.isHidden = false
@@ -250,12 +255,7 @@ class ViewController : UIViewController {
             
             setThemeButtons(for: nil)
             newGameButton.isHidden = true
-            gameOverMessage.text = gameOverMessageText
-            gameOverMessage.lineBreakMode = .byWordWrapping
-            gameOverMessage.numberOfLines = 0
-            gameOverMessage.text = gameOverMessage.text?.replacingOccurrences(of : "\n", with : "\n")
-            gameOverMessage.isHidden = false
-        
+            createGameOverMessageLabel()
         }
     
     }
@@ -273,7 +273,60 @@ class ViewController : UIViewController {
         return emojis[card] ?? "?"
         
     }
-
+    
+    private func createGameOverMessageLabel () {
+        
+        let gameOverMessagelabel = UILabel()
+        gameOverMessagelabel.text = gameOverMessageText
+        gameOverMessagelabel.numberOfLines = 0
+        gameOverMessagelabel.textColor = currentThemeAttributes.flipCountColor
+        gameOverMessagelabel.backgroundColor = currentThemeAttributes.screenBackgroundColor
+        gameOverMessagelabel.textAlignment = .center
+        gameOverMessagelabel.lineBreakMode = .byWordWrapping
+        gameOverMessagelabel.text = gameOverMessagelabel.text?.replacingOccurrences(of : "\n", with : "\n")
+        stackView = UIStackView(arrangedSubviews: [gameOverMessagelabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
+        let margins = view.layoutMarginsGuide
+        let topConstraint: NSLayoutConstraint = NSLayoutConstraint(item: themeOptions,
+                                                                   attribute: .bottom,
+                                                                   relatedBy: .equal,
+                                                                   toItem: stackView,
+                                                                   attribute: .top,
+                                                                   multiplier: 1.00,
+                                                                   constant: 1.00)
+        let bottomConstraint: NSLayoutConstraint = NSLayoutConstraint(item: stackView,
+                                                                      attribute: .bottom,
+                                                                      relatedBy: .equal,
+                                                                      toItem: bottomView,
+                                                                      attribute: .top,
+                                                                      multiplier: 1.00,
+                                                                      constant: 1.00)
+        let leadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: stackView,
+                                                                       attribute: .leading,
+                                                                       relatedBy: .equal,
+                                                                       toItem: margins,
+                                                                       attribute: .leading,
+                                                                       multiplier: 1.00,
+                                                                       constant: 1.00)
+        let trailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: stackView,
+                                                                        attribute: .trailing,
+                                                                        relatedBy: .equal,
+                                                                        toItem: margins,
+                                                                        attribute: .trailing,
+                                                                        multiplier: 1.00,
+                                                                        constant: 1.00)
+        topConstraint.isActive = true
+        bottomConstraint.isActive = true
+        leadingConstraint.isActive = true
+        trailingConstraint.isActive = true
+        
+    }
+    
 }
 
 extension Int
